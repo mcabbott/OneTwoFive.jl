@@ -372,20 +372,23 @@ end
 ##### Printing
 #####
 
-function Base.show(io::IO, ::MIME"text/plain", r::Struct)  # display like LinRange
-    # isempty(r) && return show(io, r)  # can never be empty
-    summary(io, r)
-    println(io, ":")
-    Base.print_range(io, r, " ", ", ", "", " \u2026 ")
-end
+if VERSION >= v"1.11"  # before this, Base.print_range only accepts AbstractRange
 
-function Base.show(io::IO, ::MIME"text/plain", r::SubArray{<:Real, 1, <:Struct, <:Tuple{AbstractRange{Int}}, false}
-)
-    # isempty(r) && return show(io, r)  # can never be empty
-    summary(io, r)
-    println(io, ":")
-    Base.print_range(io, r, " ", ", ", "", " \u2026 ")
-end
+    function Base.show(io::IO, ::MIME"text/plain", r::Struct)  # display like LinRange
+        # isempty(r) && return show(io, r)  # can never be empty
+        summary(io, r)
+        println(io, ":")
+        Base.print_range(io, r, " ", ", ", "", " \u2026 ")
+    end
 
+    function Base.show(io::IO, ::MIME"text/plain", r::SubArray{<:Real, 1, <:Struct, <:Tuple{AbstractRange{Int}}, false}
+    )
+        # isempty(r) && return show(io, r)  # can never be empty
+        summary(io, r)
+        println(io, ":")
+        Base.print_range(io, r, " ", ", ", "", " \u2026 ")
+    end
+
+end
 
 end # module OneTwoFive
