@@ -1,0 +1,10 @@
+name = "OneTwoFive"
+uuid = "3b8edd7d-1770-4db3-baf1-86f62e581bb4"
+version = "0.1.0"
+authors = ["Michael Abbott <32575566+mcabbott@users.noreply.github.com>"]
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
